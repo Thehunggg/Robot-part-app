@@ -1,0 +1,133 @@
+src/App.css* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #eef2f7;
+}
+
+.app {
+  max-width: 430px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2563eb;
+  color: white;
+  padding: 24px 20px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.header p {
+  margin: 6px 0 0;
+  font-size: 14px;
+}
+
+.header-icon {
+  font-size: 36px;
+}
+
+main {
+  padding: 20px;
+}
+
+.search-box {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+}
+
+button {
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.section-title {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.category-menu {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 24px;
+}
+
+.category-menu button {
+  white-space: nowrap;
+  background-color: #e0ecff;
+  color: #2563eb;
+}
+
+.part-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.part-card {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.part-image {
+  width: 56px;
+  height: 56px;
+  background-color: #f3f4f6;
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+}
+
+.part-info {
+  flex: 1;
+}
+
+.part-info h3 {
+  margin: 0 0 6px;
+}
+
+.part-info p {
+  margin: 4px 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.part-detail {
+  margin-top: 10px;
+}
+
+.part-detail button {
+  margin-top: 8px;
+}

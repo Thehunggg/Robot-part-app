@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ロボット部品管理システム</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; }
+        form { background: #f4f4f4; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        input, select, button { display: block; width: 100%; margin: 10px 0; padding: 8px; box-sizing: border-box; }
+        button { background: #28a745; color: white; border: none; cursor: pointer; font-size: 16px; }
+        button:hover { background: #218838; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #fff; margin: 5px 0; padding: 10px; border: 1px solid #ddd; border-left: 5px solid #007bff; }
+    </style>
+</head>
+<body>
+
+    <h2>🤖 ロボット部品登録</h2>
+    <form id="partForm">
+        <label>部品名:</label>
+        <input type="text" id="name" placeholder="例：ロボットアーム、超音波センサー" required>
+
+        <label>カテゴリ:</label>
+        <select id="category">
+            <option value="Actuator">アクチュエータ (Actuator)</option>
+            <option value="Sensor">センサー (Sensor)</option>
+            <option value="Controller">コントローラ (Controller)</option>
+            <option value="Power">電源・バッテリー (Power)</option>
+        </select>
+
+        <label>数量:</label>
+        <input type="number" id="quantity" value="1" min="1" required>
+
+        <button type="submit">部品を追加する</button>
+    </form>
+
+    <h2>📦 部品在庫一覧</h2>
+    <ul id="partsList"></ul>
+
+    <script>
+        const API_URL = '/api/parts';
+
+        // 1. 部品一覧の取得 (GET)
+        async function fetchParts() {
+            try {
+                const res = await fetch(API_URL);
+                const parts = await res.json();
+                const list = document.getElementById('partsList');
+                list.innerHTML = '';
+                
+                parts.forEach(part => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>${part.name}</strong> - カテゴリ: <em>${part.category}</em> | 数量: <strong>${part.quantity}</strong>`;
+                    list.appendChild(li);
+                });
+            } catch (err) {
+                console.error("データ取得エラー:", err);
+            }
+        }
+
+        // 2. 新しい部品の登録 (POST)
+        document.getElementById('partForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const category = document.getElementById('category').value;
+            const quantity = parseInt(document.getElementById('quantity').value);
+
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, category, quantity })
+                });
+
+                if (res.ok) {
+                    alert('部品の追加に成功しました！');
+                    document.getElementById('partForm').reset();
+                    document.getElementById('quantity').value = 1;
+                    fetchParts(); // 一覧を更新
+                } else {
+                    alert('サーバーエラーが発生しました。');
+                }
+            } catch (err) {
+                console.error("データ送信エラー:", err);
+            }
+        });
+
+        // 初期読み込み
+        fetchParts();
+    </script>
+</body>
+</html>
